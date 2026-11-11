@@ -1,0 +1,535 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": [
+            "cancelar",
+            "para",
+            "detente",
+            "ya no",
+            "no quiero",
+            "olvídalo"
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "slots": [],
+          "name": "HelloWorldIntent",
+          "samples": [
+            "hola agente vaca",
+            "hola vaca",
+            "hola"
+          ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "slots": [
+            {
+              "name": "tarea",
+              "type": "AMAZON.SearchQuery"
+            },
+            {
+              "name": "fecha",
+              "type": "AMAZON.DATE"
+            },
+            {
+              "name": "hora",
+              "type": "AMAZON.TIME"
+            }
+          ],
+          "name": "RegistrarTareaIntent",
+          "samples": [
+            "crear tarea {tarea}",
+            "guardar {tarea}",
+            "anota {tarea}",
+            "agrega {tarea}",
+            "registra {tarea}",
+            "tengo una nueva tarea",
+            "quiero guardar algo",
+            "guarda un pendiente",
+            "anota un pendiente",
+            "quiero agregar una tarea",
+            "agrega tarea",
+            "registra tarea"
+          ]
+        },
+        {
+          "slots": [
+            {
+              "name": "tarea",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "name": "CancelarTareaIntent",
+          "samples": [
+            "elimina {tarea}",
+            "quita {tarea}",
+            "borra {tarea}",
+            "elimina la tarea {tarea}",
+            "quita la tarea {tarea}",
+            "borra la tarea {tarea}",
+            "no voy a hacer {tarea}",
+            "ya no voy a {tarea}",
+            "quiero eliminar una tarea",
+            "quiero borrar una tarea",
+            "eliminar tarea",
+            "borrar tarea"
+          ]
+        },
+        {
+          "slots": [
+            {
+              "name": "nota",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "name": "GuardarNotaIntent",
+          "samples": [
+            "anota {nota}",
+            "apunta {nota}",
+            "guarda una nota {nota}",
+            "nota {nota}",
+            "recuerda que {nota}",
+            "anota que {nota}",
+            "quiero anotar algo",
+            "guarda una nota",
+            "toma nota"
+          ]
+        },
+        {
+          "slots": [
+            {
+              "name": "fecha",
+              "type": "AMAZON.DATE"
+            }
+          ],
+          "name": "LeerNotasIntent",
+          "samples": [
+            "lee mis notas",
+            "mis notas de hoy",
+            "qué anoté hoy",
+            "qué notas tengo",
+            "lee mis notas de {fecha}",
+            "notas de {fecha}",
+            "qué anoté {fecha}",
+            "mis apuntes"
+          ]
+        },
+        {
+          "slots": [
+            {
+              "name": "nombre",
+              "type": "AMAZON.SearchQuery"
+            },
+            {
+              "name": "fecha",
+              "type": "AMAZON.DATE"
+            },
+            {
+              "name": "hora",
+              "type": "AMAZON.TIME"
+            }
+          ],
+          "name": "CrearReunionIntent",
+          "samples": [
+            "crea una reunión {nombre}",
+            "agenda una reunión {nombre}",
+            "programa una reunión {nombre}",
+            "nueva reunión {nombre}",
+            "crea un meet {nombre}",
+            "necesito una reunión",
+            "crea una reunión",
+            "agenda reunión",
+            "quiero crear un meet"
+          ]
+        },
+        {
+          "slots": [],
+          "name": "QuienEsCutoIntent",
+          "samples": [
+            "quién es cuto",
+            "cuéntame de cuto",
+            "háblame de cuto",
+            "quién es tu hermano",
+            "cuto",
+            "y cuto",
+            "qué hay de cuto"
+          ]
+        },
+        {
+          "slots": [],
+          "name": "QuienEresIntent",
+          "samples": [
+            "quién eres",
+            "qué eres",
+            "qué haces",
+            "cuéntame de ti",
+            "preséntate",
+            "qué hace el agente",
+            "quién eres vaca",
+            "para qué sirves",
+            "qué puedes hacer"
+          ]
+        },
+        {
+          "slots": [
+            {
+              "name": "tarea",
+              "type": "AMAZON.SearchQuery"
+            },
+            {
+              "name": "fecha",
+              "type": "AMAZON.DATE"
+            }
+          ],
+          "name": "ReagendarTareaIntent",
+          "samples": [
+            "mueve {tarea}",
+            "reagenda {tarea}",
+            "cambia de fecha {tarea}",
+            "pasa {tarea}",
+            "posterga {tarea}",
+            "aplaza {tarea}",
+            "quiero mover una tarea",
+            "reagendar tarea"
+          ]
+        },
+        {
+          "slots": [
+            {
+              "name": "tarea",
+              "type": "AMAZON.SearchQuery"
+            },
+            {
+              "name": "hora",
+              "type": "AMAZON.TIME"
+            }
+          ],
+          "name": "CambiarHoraTareaIntent",
+          "samples": [
+            "cambia de hora {tarea}",
+            "cambia la hora de {tarea}",
+            "pon {tarea} a otra hora",
+            "mueve de hora {tarea}",
+            "quiero cambiar la hora de una tarea",
+            "cambiar hora"
+          ]
+        },
+        {
+          "slots": [],
+          "name": "LogrosDelDiaIntent",
+          "samples": [
+            "qué hice hoy",
+            "qué logré hoy",
+            "cuántas tareas hice",
+            "cuántas completé",
+            "cómo voy hoy",
+            "mi progreso",
+            "resumen de logros",
+            "qué he hecho hoy"
+          ]
+        },
+        {
+          "slots": [],
+          "name": "ProgramarDiaIntent",
+          "samples": [
+            "programa mi día",
+            "programa mis alertas",
+            "programa mis recordatorios",
+            "activa mis alertas",
+            "activa recordatorios",
+            "avísame de mis tareas",
+            "prepara mi día",
+            "organiza mi día",
+            "configura mis recordatorios",
+            "ponme recordatorios"
+          ]
+        },
+        {
+          "slots": [
+            {
+              "name": "tarea",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "name": "CompletarTareaIntent",
+          "samples": [
+            "ya terminé {tarea}",
+            "completé {tarea}",
+            "ya hice {tarea}",
+            "terminé {tarea}",
+            "ya acabé {tarea}",
+            "listo con {tarea}",
+            "hecho {tarea}",
+            "marca como completada {tarea}",
+            "ya completé {tarea}"
+          ]
+        },
+        {
+          "slots": [
+            {
+              "name": "fecha",
+              "type": "AMAZON.DATE"
+            }
+          ],
+          "name": "ConsultarPendientesIntent",
+          "samples": [
+            "qué pendientes tengo {fecha}",
+            "qué actividades tengo {fecha}",
+            "qué tengo {fecha}",
+            "revisa mis pendientes",
+            "qué actividades tengo hoy",
+            "qué tareas tengo hoy",
+            "qué debo hacer hoy",
+            "muéstrame mis pendientes",
+            "cuáles son mis pendientes",
+            "qué tengo hoy",
+            "qué tengo pendiente",
+            "qué hay para hoy",
+            "dame mi agenda",
+            "lee mi agenda",
+            "mis tareas de hoy",
+            "agenda del día",
+            "mis pendientes"
+          ]
+        }
+      ],
+      "types": [],
+      "invocationName": "vaca roberto"
+    },
+    "dialog": {
+      "intents": [
+        {
+          "name": "RegistrarTareaIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "tarea",
+              "type": "AMAZON.SearchQuery",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.tarea"
+              }
+            },
+            {
+              "name": "fecha",
+              "type": "AMAZON.DATE",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.fecha"
+              }
+            },
+            {
+              "name": "hora",
+              "type": "AMAZON.TIME",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.hora"
+              }
+            }
+          ]
+        },
+        {
+          "name": "CancelarTareaIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "tarea",
+              "type": "AMAZON.SearchQuery",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.cancelar.tarea"
+              }
+            }
+          ]
+        },
+        {
+          "name": "CrearReunionIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "nombre",
+              "type": "AMAZON.SearchQuery",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.reunion.nombre"
+              }
+            },
+            {
+              "name": "fecha",
+              "type": "AMAZON.DATE",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.reunion.fecha"
+              }
+            },
+            {
+              "name": "hora",
+              "type": "AMAZON.TIME",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.reunion.hora"
+              }
+            }
+          ]
+        },
+        {
+          "name": "ReagendarTareaIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "tarea",
+              "type": "AMAZON.SearchQuery",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.reagendar.tarea"
+              }
+            },
+            {
+              "name": "fecha",
+              "type": "AMAZON.DATE",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.reagendar.fecha"
+              }
+            }
+          ]
+        },
+        {
+          "name": "CompletarTareaIntent",
+          "confirmationRequired": false,
+          "prompts": {},
+          "slots": [
+            {
+              "name": "tarea",
+              "type": "AMAZON.SearchQuery",
+              "confirmationRequired": false,
+              "elicitationRequired": true,
+              "prompts": {
+                "elicitation": "Elicit.Slot.completar.tarea"
+              }
+            }
+          ]
+        }
+      ],
+      "delegationStrategy": "SKILL_RESPONSE"
+    },
+    "prompts": [
+      {
+        "id": "Elicit.Slot.tarea",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "¿Qué tarea quieres registrar?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.fecha",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "¿Para qué fecha?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.hora",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "¿A qué hora?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.cancelar.tarea",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "¿Qué tarea quieres eliminar?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.reunion.nombre",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "¿Cómo se llama la reunión?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.reunion.fecha",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "¿Para qué fecha?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.reunion.hora",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "¿A qué hora?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.reagendar.tarea",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "¿Qué tarea quieres mover?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.reagendar.fecha",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "¿Para qué fecha la muevo?"
+          }
+        ]
+      },
+      {
+        "id": "Elicit.Slot.completar.tarea",
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "¿Qué tarea terminaste?"
+          }
+        ]
+      }
+    ]
+  }
+}

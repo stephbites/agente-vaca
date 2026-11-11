@@ -1,0 +1,19 @@
+# Environment and secrets
+.env
+*.env
+APIKEY/
+
+# Node
+node_modules/
+package-lock.json
+
+# Apps Script
+.clasp.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
