@@ -193,14 +193,6 @@ agente-vaca/
 | **n8n para automatizaciones** | Visual, importable, no requiere escribir cron jobs manuales |
 | **Modelo de interacción es-MX** | Skill pensado para uso real en español latinoamericano |
 
-## Roadmap
-
-- [ ] LLM API como fallback conversacional inteligente
-- [ ] BigQuery para analytics de productividad
-- [ ] Dashboard móvil (React + FastAPI)
-- [ ] Migración de n8n a Apps Script Triggers (sin dependencia externa)
-- [ ] Rutina "Buenos días" con Alexa Routines
-
 ## Tecnologías
 
 `Alexa Skills Kit` `AWS Lambda` `Amazon S3` `Node.js` `Google Apps Script`
