@@ -193,6 +193,14 @@ agente-vaca/
 | **n8n para automatizaciones** | Visual, importable, no requiere escribir cron jobs manuales |
 | **Modelo de interacción es-MX** | Skill pensado para uso real en español latinoamericano |
 
+## Demo
+
+| Notificación push | Resumen matutino | Link de Meet |
+|---|---|---|
+| ![Push](demos/push-notification.jpeg) | ![Resumen](demos/telegram-resumen-matutino.jpeg) | ![Meet](demos/telegram-meet-link.jpeg) |
+
+Los videos de demostración están en la carpeta [`demos/`](demos/).
+
 ## Tecnologías
 
 `Alexa Skills Kit` `AWS Lambda` `Amazon S3` `Node.js` `Google Apps Script`
