@@ -20,17 +20,24 @@
     },
     {
       "parameters": {
-        "command": "curl -s -L 'YOUR_APPS_SCRIPT_URL'"
+        "url": "YOUR_APPS_SCRIPT_URL",
+        "options": {
+          "redirect": {
+            "redirect": {
+              "followRedirects": true
+            }
+          }
+        }
       },
       "id": "leer_agenda",
-      "name": "Leer agenda (curl)",
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
+      "name": "Leer agenda",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [420, 300]
     },
     {
       "parameters": {
-        "jsCode": "const raw = $input.first().json.stdout;\nconst filas = JSON.parse(raw);\nconst headers = filas[0];\nconst data = filas.slice(1);\n\nconst hoy = new Date();\nhoy.setHours(0, 0, 0, 0);\n\nconst idxFecha = headers.indexOf('Fecha');\nconst idxTarea = headers.indexOf('Tarea');\nconst idxEstado = headers.indexOf('Estado');\nconst idxHora = headers.findIndex(h => h.toString().trim().startsWith('Hora'));\n\nconst atrasadas = [];\n\nfor (const fila of data) {\n  const estado = (fila[idxEstado] || '').toString().trim().toLowerCase();\n  if (estado === 'hecho' || estado === 'completada') continue;\n  \n  const fechaStr = (fila[idxFecha] || '').toString().trim();\n  if (!fechaStr) continue;\n  \n  const fechaTarea = new Date(fechaStr + 'T00:00:00');\n  const diffDias = Math.floor((hoy - fechaTarea) / (1000 * 60 * 60 * 24));\n  \n  if (diffDias >= 2) {\n    atrasadas.push({\n      tarea: fila[idxTarea],\n      fecha: fechaStr,\n      hora: fila[idxHora] || '',\n      dias_atraso: diffDias\n    });\n  }\n}\n\natrasadas.sort((a, b) => b.dias_atraso - a.dias_atraso);\n\nreturn [{ json: { atrasadas, total: atrasadas.length } }];"
+        "jsCode": "const filas = $input.first().json;\nconst headers = filas[0];\nconst data = filas.slice(1);\n\nconst hoy = new Date();\nhoy.setHours(0, 0, 0, 0);\n\nconst idxFecha = headers.indexOf('Fecha');\nconst idxTarea = headers.indexOf('Tarea');\nconst idxEstado = headers.indexOf('Estado');\nconst idxHora = headers.findIndex(h => h.toString().trim().startsWith('Hora'));\n\nconst atrasadas = [];\n\nfor (const fila of data) {\n  const estado = (fila[idxEstado] || '').toString().trim().toLowerCase();\n  if (estado === 'hecho' || estado === 'completada') continue;\n  \n  const fechaStr = (fila[idxFecha] || '').toString().trim();\n  if (!fechaStr) continue;\n  \n  const fechaTarea = new Date(fechaStr + 'T00:00:00');\n  const diffDias = Math.floor((hoy - fechaTarea) / (1000 * 60 * 60 * 24));\n  \n  if (diffDias >= 2) {\n    atrasadas.push({\n      tarea: fila[idxTarea],\n      fecha: fechaStr,\n      hora: fila[idxHora] || '',\n      dias_atraso: diffDias\n    });\n  }\n}\n\natrasadas.sort((a, b) => b.dias_atraso - a.dias_atraso);\n\nreturn [{ json: { atrasadas, total: atrasadas.length } }];"
       },
       "id": "filtrar_atrasadas",
       "name": "Filtrar atrasadas 2+ dias",
@@ -95,10 +102,10 @@
   "connections": {
     "Cada dia 9am": {
       "main": [
-        [{ "node": "Leer agenda (curl)", "type": "main", "index": 0 }]
+        [{ "node": "Leer agenda", "type": "main", "index": 0 }]
       ]
     },
-    "Leer agenda (curl)": {
+    "Leer agenda": {
       "main": [
         [{ "node": "Filtrar atrasadas 2+ dias", "type": "main", "index": 0 }]
       ]

@@ -20,17 +20,24 @@
     },
     {
       "parameters": {
-        "command": "curl -s -L 'YOUR_APPS_SCRIPT_URL'"
+        "url": "YOUR_APPS_SCRIPT_URL",
+        "options": {
+          "redirect": {
+            "redirect": {
+              "followRedirects": true
+            }
+          }
+        }
       },
       "id": "leer_agenda",
-      "name": "Leer agenda (curl)",
-      "type": "n8n-nodes-base.executeCommand",
-      "typeVersion": 1,
+      "name": "Leer agenda",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [420, 300]
     },
     {
       "parameters": {
-        "jsCode": "const raw = $input.first().json.stdout;\nconst filas = JSON.parse(raw);\nconst headers = filas[0];\nconst data = filas.slice(1);\n\nconst ahora = new Date();\n\nconst lunes = new Date(ahora);\nlunes.setDate(ahora.getDate() - ahora.getDay() + (ahora.getDay() === 0 ? -6 : 1));\nlunes.setHours(0, 0, 0, 0);\n\nconst domingo = new Date(lunes);\ndomingo.setDate(lunes.getDate() + 6);\ndomingo.setHours(23, 59, 59, 999);\n\nconst idxFecha = headers.indexOf('Fecha');\nconst idxTarea = headers.indexOf('Tarea');\nconst idxEstado = headers.indexOf('Estado');\nconst idxHora = headers.findIndex(h => h.toString().trim().startsWith('Hora'));\n\nlet completadas = 0;\nlet pendientes = 0;\nlet totalSemana = 0;\nconst porDia = {};\nconst diasNombre = ['Dom', 'Lun', 'Mar', 'Mi\\u00e9', 'Jue', 'Vie', 'S\\u00e1b'];\n\nfor (const fila of data) {\n  const fechaStr = (fila[idxFecha] || '').toString().trim();\n  if (!fechaStr) continue;\n  \n  const fecha = new Date(fechaStr + 'T12:00:00');\n  if (fecha < lunes || fecha > domingo) continue;\n  \n  totalSemana++;\n  const estado = (fila[idxEstado] || '').toString().trim().toLowerCase();\n  const dia = diasNombre[fecha.getDay()];\n  \n  if (!porDia[dia]) porDia[dia] = { completadas: 0, pendientes: 0 };\n  \n  if (estado === 'hecho' || estado === 'completada') {\n    completadas++;\n    porDia[dia].completadas++;\n  } else {\n    pendientes++;\n    porDia[dia].pendientes++;\n  }\n}\n\nconst porcentaje = totalSemana > 0 ? Math.round((completadas / totalSemana) * 100) : 0;\n\nlet mejorDia = '';\nlet mejorCount = 0;\nfor (const [dia, stats] of Object.entries(porDia)) {\n  if (stats.completadas > mejorCount) {\n    mejorCount = stats.completadas;\n    mejorDia = dia;\n  }\n}\n\nreturn [{ json: {\n  completadas,\n  pendientes,\n  totalSemana,\n  porcentaje,\n  mejorDia,\n  mejorCount,\n  porDia,\n  lunesStr: lunes.toISOString().split('T')[0],\n  domingoStr: domingo.toISOString().split('T')[0]\n}}];"
+        "jsCode": "const filas = $input.first().json;\nconst headers = filas[0];\nconst data = filas.slice(1);\n\nconst ahora = new Date();\n\nconst lunes = new Date(ahora);\nlunes.setDate(ahora.getDate() - ahora.getDay() + (ahora.getDay() === 0 ? -6 : 1));\nlunes.setHours(0, 0, 0, 0);\n\nconst domingo = new Date(lunes);\ndomingo.setDate(lunes.getDate() + 6);\ndomingo.setHours(23, 59, 59, 999);\n\nconst idxFecha = headers.indexOf('Fecha');\nconst idxTarea = headers.indexOf('Tarea');\nconst idxEstado = headers.indexOf('Estado');\nconst idxHora = headers.findIndex(h => h.toString().trim().startsWith('Hora'));\n\nlet completadas = 0;\nlet pendientes = 0;\nlet totalSemana = 0;\nconst porDia = {};\nconst diasNombre = ['Dom', 'Lun', 'Mar', 'Mi\\u00e9', 'Jue', 'Vie', 'S\\u00e1b'];\n\nfor (const fila of data) {\n  const fechaStr = (fila[idxFecha] || '').toString().trim();\n  if (!fechaStr) continue;\n  \n  const fecha = new Date(fechaStr + 'T12:00:00');\n  if (fecha < lunes || fecha > domingo) continue;\n  \n  totalSemana++;\n  const estado = (fila[idxEstado] || '').toString().trim().toLowerCase();\n  const dia = diasNombre[fecha.getDay()];\n  \n  if (!porDia[dia]) porDia[dia] = { completadas: 0, pendientes: 0 };\n  \n  if (estado === 'hecho' || estado === 'completada') {\n    completadas++;\n    porDia[dia].completadas++;\n  } else {\n    pendientes++;\n    porDia[dia].pendientes++;\n  }\n}\n\nconst porcentaje = totalSemana > 0 ? Math.round((completadas / totalSemana) * 100) : 0;\n\nlet mejorDia = '';\nlet mejorCount = 0;\nfor (const [dia, stats] of Object.entries(porDia)) {\n  if (stats.completadas > mejorCount) {\n    mejorCount = stats.completadas;\n    mejorDia = dia;\n  }\n}\n\nreturn [{ json: {\n  completadas,\n  pendientes,\n  totalSemana,\n  porcentaje,\n  mejorDia,\n  mejorCount,\n  porDia,\n  lunesStr: lunes.toISOString().split('T')[0],\n  domingoStr: domingo.toISOString().split('T')[0]\n}}];"
       },
       "id": "calcular_resumen",
       "name": "Calcular resumen semanal",
@@ -67,10 +74,10 @@
   "connections": {
     "Domingo 8pm": {
       "main": [
-        [{ "node": "Leer agenda (curl)", "type": "main", "index": 0 }]
+        [{ "node": "Leer agenda", "type": "main", "index": 0 }]
       ]
     },
-    "Leer agenda (curl)": {
+    "Leer agenda": {
       "main": [
         [{ "node": "Calcular resumen semanal", "type": "main", "index": 0 }]
       ]
